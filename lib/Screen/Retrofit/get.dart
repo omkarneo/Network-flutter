@@ -102,22 +102,48 @@ FutureBuilder<List<Post>> _PostBody(BuildContext context) {
   );
 }
 
-FutureBuilder _PhotoBody(BuildContext context) {
+// FutureBuilder<Welcome> _PhotoBody1(BuildContext context) {
+//   final client = Client(Dio(BaseOptions(contentType: "application/json")));
+//   return FutureBuilder<Welcome>(
+//     future: client.getPhoto(),
+//     builder: (context, snapshot) {
+//       if (snapshot.hasData) {
+//         // print(snapshot.data);
+//         final post = snapshot.data;
+//         print(post!.users);
+//         // print(jokes!.length);
+//         return Container();
+
+//         // return ListTile(
+//         //   leading: Image.network(post['avatar']),
+//         //   title: Text("${post['first_name']} ${post['last_name']}"),
+//         //   subtitle: Text("${post['email']}"),
+//         // );
+//       } else {
+//         return const Center(
+//           child: CircularProgressIndicator(),
+//         );
+//       }
+//     },
+//   );
+// }
+
+FutureBuilder<Photo> _PhotoBody(BuildContext context) {
   final client = PhotoClient(Dio(BaseOptions(contentType: "application/json")));
-  return FutureBuilder(
+  return FutureBuilder<Photo>(
     future: client.getPhoto("1"),
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         // print(snapshot.data);
-        final post = snapshot.data['data'];
-        print(post);
+        final post = snapshot.data!.data;
+        print(post!.avatar);
         // print(jokes!.length);
         // return Container();
 
         return ListTile(
-          leading: Image.network(post['avatar']),
-          title: Text("${post['first_name']} ${post['last_name']}"),
-          subtitle: Text("${post['email']}"),
+          leading: Image.network(post.avatar!),
+          title: Text("${post.firstName} ${post.lastName}"),
+          subtitle: Text("${post.email}"),
         );
       } else {
         return const Center(
